@@ -30,8 +30,24 @@ No accounts. No subscriptions. No $199 fee. Just open `index.html` and go.
 
 ```bash
 # Or serve locally:
-python3 -m http.server 8080
+uv run python -m http.server 8080
 # Then open http://localhost:8080
+```
+
+## Install `uv` (recommended)
+
+```bash
+# macOS (Homebrew)
+brew install uv
+
+# Or with the official installer
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Verify installation:
+
+```bash
+uv --version
 ```
 
 ## Keyboard Shortcuts

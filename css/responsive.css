@@ -150,5 +150,25 @@
 :fullscreen .board {
   border-radius: 0;
   box-shadow: none;
-  --tile-size: clamp(44px, 4vw, 70px);
+  width: 100vw;
+  height: 100vh;
+  padding: clamp(20px, 3vh, 48px) clamp(16px, 2vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --tile-gap: clamp(3px, 0.35vw, 8px);
+  --tile-size: min(
+    calc(
+      (100vw - (2 * clamp(16px, 2vw, 40px)) - ((var(--grid-cols) - 1) * var(--tile-gap)))
+      / var(--grid-cols)
+    ),
+    calc(
+      (100vh - (2 * clamp(20px, 3vh, 48px)) - ((var(--grid-rows) - 1) * var(--tile-gap)))
+      / var(--grid-rows)
+    )
+  );
+}
+
+:fullscreen .board::after {
+  display: none;
 }

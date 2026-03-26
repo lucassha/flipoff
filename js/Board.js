@@ -64,8 +64,8 @@ export class Board {
     const overlay = document.createElement('div');
     overlay.className = 'shortcuts-overlay';
     overlay.innerHTML = `
-      <div><span>Next message</span><kbd>Enter</kbd></div>
-      <div><span>Previous</span><kbd>\u2190</kbd></div>
+      <div><span>Refresh clock</span><kbd>Enter</kbd></div>
+      <div><span>Refresh clock</span><kbd>\u2190/\u2192</kbd></div>
       <div><span>Fullscreen</span><kbd>F</kbd></div>
       <div><span>Mute</span><kbd>M</kbd></div>
     `;
@@ -138,8 +138,14 @@ export class Board {
 
   _formatToGrid(lines) {
     const grid = [];
+    const normalizedLines = (lines || []).map(line => (line || '').toUpperCase());
+    const visibleCount = Math.min(normalizedLines.length, this.rows);
+    const centeredOffset = Math.max(0, Math.floor((this.rows - visibleCount) / 2));
+    const topOffset = Math.min(this.rows - visibleCount, centeredOffset + 1);
+
     for (let r = 0; r < this.rows; r++) {
-      const line = (lines[r] || '').toUpperCase();
+      const sourceIndex = r - topOffset;
+      const line = sourceIndex >= 0 && sourceIndex < visibleCount ? normalizedLines[sourceIndex] : '';
       const padTotal = this.cols - line.length;
       const padLeft = Math.max(0, Math.floor(padTotal / 2));
       const padded = ' '.repeat(padLeft) + line + ' '.repeat(Math.max(0, this.cols - padLeft - line.length));
